@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapLibre Example</title>
+    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+        <style>
+        /* Optional: Add custom CSS styles here */
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://api.maptiler.com/maps/streets/style.json?key=mFiigHzPGl8csJ5l8tUm',
+            center: [-117.1611, 32.7157], // Initial map center, first Number is Longititude (East-West), second is Latitude (North-South).
+            zoom: 10 // Initial map zoom level
+        });
+
+        map.on('load', async () => {
+            image = await map.loadImage('last.png');
+        map.addImage('pin', image.data);
+            map.addSource('roads', {
+                type: 'geojson',
+                data: 'final.geojson',  
+            });
+
+            map.addLayer({
+                'id': 'icons',
+            'type': 'symbol',
+            'source': 'roads',
+            'layout': {
+                'icon-image': 'pin',
+                // 'icon-overlap': 'always',
+                'icon-size': 0.015
+            }
+        });
+
+        map.addLayer({
+        'id': 'myLayer',
+        'type': 'line',
+        'source': 'roads',
+        'paint': {
+            'line-width': 2,
+            'line-color': 'red'
+        }
+    });
+
+    // filter the layer based on a property
+    map.setFilter('myLayer', ['in', 'iamfloc', 'SS-034508-PV1','SS-035069-PV1',"SS-035171-PV1","SS-034242-PV1","SS-035021-PV1","SS-035031-PV1","SS-035129-PV1","SS-035413-PV1","SS-034274-PV1","SS-034621-PV1","SS-035118-PV1","SS-035032-PV1","SS-035414-PV1","SS-035386-PV1","SS-035262-PV1","SS-034338-PV1","SS-034537-PV1","SS-035020-PV1","SS-035241-PV1","SS-033205-PV1","SS-032773-PV1","SS-035515-PV1","SS-033078-PV1","SS-033480-PV1","SS-033579-PV1","SS-032845-PV1","SS-033669-PV1","SS-033479-PV1","SS-034851-PV1","SS-033231-PV1","SS-033206-PV1","SS-033223-PV1","SS-032968-PV1","SS-033275-PV1","SS-033491-PV1","SS-033260-PV1","SS-033425-PV1","SS-033072-PV1","SS-033103-PV1","SS-033443-PV1","SS-033113-PV1","SS-034713-PV1","SS-033153-PV1","SS-032997-PV1","SS-033188-PV1","SS-033155-PV1","SS-033074-PV1","SS-033329-PV1","SS-033333-PV1","SS-033064-PV1","SS-033294-PV1","SS-032999-PV1","SS-033218-PV1","SS-033306-PV1","SS-033626-PV1","SS-033217-PV1","SS-033137-PV1","SS-033266-PV1","SS-035517-PV1","SS-033442-PV1","SS-033168-PV1","SS-033083-PV1","SS-033180-PV1","SS-033316-PV1","SS-033375-PV1","SS-033707-PV1","SS-033255-PV1","SS-033283-PV1","SS-033668-PV1","SS-035516-PV1","SS-035298-PV1","SS-034399-PV1","SS-033277-PV1","SS-033576-PV1","SS-034734-PV1","SS-033814-PV1","SS-033136-PV1","SS-033101-PV1","SS-035341-PV1","SS-033160-PV1","SS-035414-PV1","SS-033082-PV1","SS-033314-PV1","SS-032808-PV1","SS-033446-PV1","SS-033274-PV1","SS-033422-PV1","SS-033104-PV1","SS-033269-PV1","SS-033184-PV1","SS-033376-PV1","SS-032986-PV1","SS-033481-PV1","SS-033141-PV1","SS-033367-PV1","SS-033426-PV1","SS-034714-PV1","SS-035062-PV1","SS-033236-PV1","SS-033421-PV1","SS-033434-PV1","SS-033698-PV1","SS-033582-PV1","SS-034402-PV1","SS-034669-PV1","SS-034728-PV1","SS-033437-PV1","SS-032996-PV1","SS-033705-PV1","SS-033220-PV1","SS-033614-PV1","SS-033670-PV1","SS-033390-PV1","SS-033268-PV1","SS-033207-PV1","SS-032809-PV1","SS-033166-PV1","SS-034674-PV1","SS-033702-PV1","SS-035518-PV1","SS-033484-PV1","SS-033208-PV1","SS-034716-PV1","SS-033444-PV1","SS-033354-PV1","SS-033140-PV1","SS-034703-PV1","SS-032768-PV1","SS-033213-PV1","SS-033086-PV1","SS-033000-PV1","SS-033193-PV1","SS-035510-PV1","SS-033438-PV1","SS-034982-PV1","SS-033171-PV1","SS-033834-PV1","SS-033087-PV1","SS-033135-PV1","SS-033332-PV1","SS-033258-PV1","SS-033102-PV1","SS-032883-PV1","SS-033003-PV1","SS-032775-PV1","SS-031627-PV1","SS-016063-PV1","SS-029594-PV1","SS-007495-PV1","SS-011017-PV1","SS-003890-PV1","SS-015135-PV1","SS-012670-PV1","SS-023801-PV1","SS-013141-PV1","SS-025859-PV1","SS-012671-PV1","SS-013145-PV1","SS-029602-PV1","SS-013987-PV1","SS-008956-PV1","SS-014579-PV1","SS-029455-PV1","SS-022898-PV1","SS-024408-PV1","SS-013142-PV1","SS-007844-PV1","SS-020291-PV1","SS-002257-PV1","SS-015134-PV1","SS-021976-PV1","SS-038427-PV1","SS-029590-PV1","SS-016354-PV1","SS-007843-PV1","SS-009648-PV1","SS-006969-PV1","SS-025858-PV1","SS-032740-PV1"]);
+
+    map.setFilter('icons', ['in', 'iamfloc', 'SS-034508-PV1','SS-035069-PV1',"SS-035171-PV1","SS-034242-PV1","SS-035021-PV1","SS-035031-PV1","SS-035129-PV1","SS-035413-PV1","SS-034274-PV1","SS-034621-PV1","SS-035118-PV1","SS-035032-PV1","SS-035414-PV1","SS-035386-PV1","SS-035262-PV1","SS-034338-PV1","SS-034537-PV1","SS-035020-PV1","SS-035241-PV1","SS-033205-PV1","SS-032773-PV1","SS-035515-PV1","SS-033078-PV1","SS-033480-PV1","SS-033579-PV1","SS-032845-PV1","SS-033669-PV1","SS-033479-PV1","SS-034851-PV1","SS-033231-PV1","SS-033206-PV1","SS-033223-PV1","SS-032968-PV1","SS-033275-PV1","SS-033491-PV1","SS-033260-PV1","SS-033425-PV1","SS-033072-PV1","SS-033103-PV1","SS-033443-PV1","SS-033113-PV1","SS-034713-PV1","SS-033153-PV1","SS-032997-PV1","SS-033188-PV1","SS-033155-PV1","SS-033074-PV1","SS-033329-PV1","SS-033333-PV1","SS-033064-PV1","SS-033294-PV1","SS-032999-PV1","SS-033218-PV1","SS-033306-PV1","SS-033626-PV1","SS-033217-PV1","SS-033137-PV1","SS-033266-PV1","SS-035517-PV1","SS-033442-PV1","SS-033168-PV1","SS-033083-PV1","SS-033180-PV1","SS-033316-PV1","SS-033375-PV1","SS-033707-PV1","SS-033255-PV1","SS-033283-PV1","SS-033668-PV1","SS-035516-PV1","SS-035298-PV1","SS-034399-PV1","SS-033277-PV1","SS-033576-PV1","SS-034734-PV1","SS-033814-PV1","SS-033136-PV1","SS-033101-PV1","SS-035341-PV1","SS-033160-PV1","SS-035414-PV1","SS-033082-PV1","SS-033314-PV1","SS-032808-PV1","SS-033446-PV1","SS-033274-PV1","SS-033422-PV1","SS-033104-PV1","SS-033269-PV1","SS-033184-PV1","SS-033376-PV1","SS-032986-PV1","SS-033481-PV1","SS-033141-PV1","SS-033367-PV1","SS-033426-PV1","SS-034714-PV1","SS-035062-PV1","SS-033236-PV1","SS-033421-PV1","SS-033434-PV1","SS-033698-PV1","SS-033582-PV1","SS-034402-PV1","SS-034669-PV1","SS-034728-PV1","SS-033437-PV1","SS-032996-PV1","SS-033705-PV1","SS-033220-PV1","SS-033614-PV1","SS-033670-PV1","SS-033390-PV1","SS-033268-PV1","SS-033207-PV1","SS-032809-PV1","SS-033166-PV1","SS-034674-PV1","SS-033702-PV1","SS-035518-PV1","SS-033484-PV1","SS-033208-PV1","SS-034716-PV1","SS-033444-PV1","SS-033354-PV1","SS-033140-PV1","SS-034703-PV1","SS-032768-PV1","SS-033213-PV1","SS-033086-PV1","SS-033000-PV1","SS-033193-PV1","SS-035510-PV1","SS-033438-PV1","SS-034982-PV1","SS-033171-PV1","SS-033834-PV1","SS-033087-PV1","SS-033135-PV1","SS-033332-PV1","SS-033258-PV1","SS-033102-PV1","SS-032883-PV1","SS-033003-PV1","SS-032775-PV1","SS-031627-PV1","SS-016063-PV1","SS-029594-PV1","SS-007495-PV1","SS-011017-PV1","SS-003890-PV1","SS-015135-PV1","SS-012670-PV1","SS-023801-PV1","SS-013141-PV1","SS-025859-PV1","SS-012671-PV1","SS-013145-PV1","SS-029602-PV1","SS-013987-PV1","SS-008956-PV1","SS-014579-PV1","SS-029455-PV1","SS-022898-PV1","SS-024408-PV1","SS-013142-PV1","SS-007844-PV1","SS-020291-PV1","SS-002257-PV1","SS-015134-PV1","SS-021976-PV1","SS-038427-PV1","SS-029590-PV1","SS-016354-PV1","SS-007843-PV1","SS-009648-PV1","SS-006969-PV1","SS-025858-PV1","SS-032740-PV1"]);
+
+
+    
+            
+        
+
+        });
+
+    </script>
+</body>
+</html>
+
+<!-- 'layout': {
+                    'text-field': ['get', 'rd20full'], // Use a get expression to set the text-field to a feature property value.
+                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                    'text-offset': [0, 1.25],
+                    'text-anchor': 'top'
+                } -->
+
+
+<!-- // Assuming you have added a GeoJSON source to your map
+map.addSource('mySource', {
+  'type': 'geojson',
+  'data': myGeoJSON
+});
+
+// Get the source
+let source = map.getSource('mySource');
+
+// Access the data property of the source which contains the GeoJSON data
+let data = source._data;
+
+// Now you can loop through the features and access the properties
+for (let feature of data.features) {
+  console.log(feature.properties.myProperty);
+}
+
+// Assuming you have a layer with the ID 'myLayer'
+let layerId = 'myLayer';
+
+// Define a filter that selects features where 'myProperty' is equal to 'myValue'
+let filter = ['==', 'myProperty', 'myValue'];
+
+// Apply the filter to the layer
+map.setFilter(layerId, filter);
+
+
+
+ -->
+    
