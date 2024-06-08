@@ -35,6 +35,8 @@
                 data: 'final.geojson',  
             });
 
+            map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
             map.addLayer({
                 'id': 'icons',
             'type': 'symbol',
