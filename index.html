@@ -22,7 +22,7 @@
     <style>
         .maplibregl-popup {
             max-width: 400px;
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;            
         }
     </style>
 
@@ -60,6 +60,9 @@
             map.on('click', 'icons', (e) => {
             const coordinates = e.features[0].geometry.coordinates[0].slice();
             const street = e.features[0].properties.street;
+            const stFrom = e.features[0].properties.street_fr;
+            const stTo = e.features[0].properties.street_to;
+            const condi = e.features[0].properties.pci23_d;
 
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
@@ -70,7 +73,9 @@
 
             new maplibregl.Popup()
                 .setLngLat(coordinates)
-                .setHTML(street)
+                .setHTML(`<strong>Type</strong>: ${street} <br>
+                          <strong>From</strong>: ${stFrom} <br>
+                          <strong>To</strong>: ${stTo}`)
                 .addTo(map);
         });
 
